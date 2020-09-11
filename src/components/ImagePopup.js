@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Bigimg = () => {
+const ImagePopup = () => {
  return (
     <section className="popup" id="bigimg">
     <figure className="popup__block-big">
@@ -14,4 +14,4 @@ const Bigimg = () => {
  );
 }
 
-export default Bigimg;
+export default ImagePopup;
