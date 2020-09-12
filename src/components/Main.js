@@ -16,6 +16,7 @@ const Main = (props) => {
 const [userName, setUserName] = React.useState();
 const [userDescription, setUserDescription] = React.useState();
 const [userAvatar, setUserAvatar] = React.useState();
+const [userId, setUserId] = React.useState();
 const [cards, setCards] = React.useState([]);
 
 React.useEffect(() => {
@@ -24,7 +25,7 @@ React.useEffect(() => {
         setUserName(res.name)
         setUserDescription(res.about)
         setUserAvatar(res.avatar)
-        // idProfile = res._id;
+        setUserId(res._id)
       })
       .catch((err) => {
         console.log(err);
@@ -55,7 +56,7 @@ React.useEffect(() => {
     <Avatar avatar={props.onEditAvatar} profile={props.onEditProfile} addPlace={props.onAddPlace} username={userName} userdescription={userDescription} useravatar={userAvatar} />
 
     <section className="places">
-    {cards.map(card => <Card {...card} />)}
+    {cards.map(card => <Card {...card} onCardClick={props.onCardClick} />)}
     </section>
 
 <PopupWithForm title="Редактировать профиль" id="profile" isOpen={props.isOpen.profile} isClose={props.onClose}>
@@ -89,7 +90,8 @@ React.useEffect(() => {
 
 <PopupWithForm title="Вы уверены?" id="remove-card" />
    
-    <ImagePopup />
+    <ImagePopup {...props} />
+
     </main>
     );
 }
