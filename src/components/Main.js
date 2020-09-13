@@ -5,11 +5,6 @@ import ImagePopup from './ImagePopup';
 import PopupWithForm from './PopupWithForm';
 import {api} from '../utils/Api'
 
-import FormAddcard from './FormAddcard';
-import FormNewavatar from './FormNewavatar';
-import FormProfile from './FormProfile';
-import Formremovecard from './Formremovecard';
-
 
 const Main = (props) => {
 
@@ -37,6 +32,7 @@ React.useEffect(() => {
     api.getInitialCards()
     .then(res => {
        const items = res.map(item => ({
+         key: item._id,
            src: item.link,
            alt: item.name,
            title: item.name,
@@ -56,23 +52,23 @@ React.useEffect(() => {
     <Avatar avatar={props.onEditAvatar} profile={props.onEditProfile} addPlace={props.onAddPlace} username={userName} userdescription={userDescription} useravatar={userAvatar} />
 
     <section className="places">
-    {cards.map(card => <Card {...card} onCardClick={props.onCardClick} />)}
+    {cards.map(card => <Card key={cards.key} {...card} onCardClick={props.onCardClick} />)}
     </section>
 
 <PopupWithForm title="Редактировать профиль" id="profile" isOpen={props.isOpen.profile} isClose={props.onClose}>
 <label className="popup__field">
-      <input type="text" className="popup__input popup__input_name" id='name-input' name="name" placeholder="Ваше Имя" value="Жак-Ив Кусто" minlength="2" maxlength="40" required />
+      <input type="text" className="popup__input popup__input_name" id='name-input' name="name" placeholder="Ваше Имя" value="Жак-Ив Кусто" minLength="2" maxLength="40" required />
       <span className='popup__input-error' id='name-input-error'></span>
       </label>
       <label className="popup__field">
-      <input type="text" className="popup__input popup__input_job" id='job-input' name="about" placeholder="О себе" value="Исследователь океана" minlength="2" maxlength="200" required />
+      <input type="text" className="popup__input popup__input_job" id='job-input' name="about" placeholder="О себе" value="Исследователь океана" minLength="2" maxLength="200" required />
       <span className='popup__input-error' id='job-input-error'></span>
       </label>
 </PopupWithForm>
 
 <PopupWithForm title="Новое место" id="add-card" isOpen={props.isOpen.place} isClose={props.onClose}>
 <label className="popup__field">
-      <input type="text" className="popup__input popup__input_place" id='place-input' name="place" placeholder="Название" minlength="1" maxlength="30" required />
+      <input type="text" className="popup__input popup__input_place" id='place-input' name="place" placeholder="Название" minLength="1" maxLength="30" required />
       <span className='popup__input-error' id='place-input-error'></span>
       </label>
       <label className="popup__field">
@@ -90,7 +86,7 @@ React.useEffect(() => {
 
 <PopupWithForm title="Вы уверены?" id="remove-card" />
    
-    <ImagePopup {...props} />
+    <ImagePopup {...props}/>
 
     </main>
     );

@@ -3,7 +3,7 @@ import React from 'react';
 const PopupWithForm = (props) => {
  return (
     <section className={`popup ${props.isOpen && 'active'}`} id={props.id}>
-    <form className="popup__block" novalidate>
+    <form className="popup__block" noValidate>
       <button className="popup__close" type="button" onClick={props.isClose}></button>
  <h4 className="popup__title">{props.title}</h4>
       {props.children}
