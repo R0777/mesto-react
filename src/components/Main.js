@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Avatar from './Avatar';
 import Card from './Card';
 import ImagePopup from './ImagePopup';
 import PopupWithForm from './PopupWithForm';
 import {api} from '../utils/Api'
-
 
 const Main = (props) => {
 
@@ -32,8 +31,9 @@ React.useEffect(() => {
     api.getInitialCards()
     .then(res => {
        const items = res.map(item => ({
-         key: item._id,
            src: item.link,
+           id: item._id,
+           owner: item.owner._id,
            alt: item.name,
            title: item.name,
            likes: item.likes.length,
@@ -52,16 +52,16 @@ React.useEffect(() => {
     <Avatar avatar={props.onEditAvatar} profile={props.onEditProfile} addPlace={props.onAddPlace} username={userName} userdescription={userDescription} useravatar={userAvatar} />
 
     <section className="places">
-    {cards.map(card => <Card key={cards.key} {...card} onCardClick={props.onCardClick} />)}
+    {cards.map(card => <Card key={card.id} myId={userId} {...card} {...props} />)}
     </section>
 
 <PopupWithForm title="Редактировать профиль" id="profile" isOpen={props.isOpen.profile} isClose={props.onClose}>
 <label className="popup__field">
-      <input type="text" className="popup__input popup__input_name" id='name-input' name="name" placeholder="Ваше Имя" value="Жак-Ив Кусто" minLength="2" maxLength="40" required />
+      <input type="text" className="popup__input popup__input_name" id='name-input' name="name" placeholder="Ваше Имя" defaultValue="Жак-Ив Кусто" minLength="2" maxLength="40" required />
       <span className='popup__input-error' id='name-input-error'></span>
       </label>
       <label className="popup__field">
-      <input type="text" className="popup__input popup__input_job" id='job-input' name="about" placeholder="О себе" value="Исследователь океана" minLength="2" maxLength="200" required />
+      <input type="text" className="popup__input popup__input_job" id='job-input' name="about" placeholder="О себе" defaultValue="Исследователь океана" minLength="2" maxLength="200" required />
       <span className='popup__input-error' id='job-input-error'></span>
       </label>
 </PopupWithForm>
@@ -79,14 +79,14 @@ React.useEffect(() => {
 
 <PopupWithForm title="Обновить аватар" id="new-avatar" isOpen={props.isOpen.avatar} isClose={props.onClose}>
 <label className="popup__field">
-      <input type="url" className="popup__input popup__input_place" id='avatar-input' name="avatar" value="" placeholder="Ссылка на картинку" required />
+      <input type="url" className="popup__input popup__input_place" id='avatar-input' name="avatar" placeholder="Ссылка на картинку" required />
       <span className='popup__input-error' id='avatar-input-error'></span>
       </label>
 </PopupWithForm>
 
-<PopupWithForm title="Вы уверены?" id="remove-card" />
+<PopupWithForm title="Вы уверены?" id="remove-card" isOpen={props.isOpen.trash} isClose={props.onClose} />
    
-    <ImagePopup {...props}/>
+    <ImagePopup {...props} />
 
     </main>
     );

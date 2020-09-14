@@ -10,13 +10,18 @@
   background-size: cover;
   box-shadow: none;
   border: 0;
+  visibility: hidden;
   cursor: pointer;
   transition: opacity .3s ease-in-out;
-  opacity: 1;
   outline: none;
 }
 
 .card__trash:hover {
   transition: opacity .3s ease-in-out;
   opacity: 0.6;
+}
+
+.active {
+  visibility: visible;
+  opacity: 1;
 }

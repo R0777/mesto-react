@@ -1,5 +1,4 @@
 import React from 'react';
-import avatar from '../images/jpg/avatar.jpg'
 
 const Avatar = (props) => {
  return (
