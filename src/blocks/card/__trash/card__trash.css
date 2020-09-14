@@ -13,7 +13,7 @@
   visibility: hidden;
   cursor: pointer;
   transition: opacity .3s ease-in-out;
-  outline: none;
+  outline: none
 }
 
 .card__trash:hover {
