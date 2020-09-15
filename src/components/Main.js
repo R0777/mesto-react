@@ -18,13 +18,13 @@ React.useEffect(() => {
   api.getInitialCards()
 ])
   .then(res => {
-    const [getProfile, getInitialCards] = res
-    setUserName(getProfile.name)
-    setUserDescription(getProfile.about)
-    setUserAvatar(getProfile.avatar)
-    setUserId(getProfile._id)
+    const [profile, cards] = res
+    setUserName(profile.name)
+    setUserDescription(profile.about)
+    setUserAvatar(profile.avatar)
+    setUserId(profile._id)
 
-    const items = getInitialCards.map(item => ({
+    const items = cards.map(item => ({
       src: item.link,
       id: item._id,
       owner: item.owner._id,
