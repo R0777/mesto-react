@@ -11,6 +11,11 @@ const [userDescription, setUserDescription] = React.useState();
 const [userAvatar, setUserAvatar] = React.useState();
 const [userId, setUserId] = React.useState();
 const [cards, setCards] = React.useState([]);
+const [isCardLike, setIsCardLike] = React.useState(false)
+
+function handleCardLike() {
+  setIsCardLike(true)
+}
 
 React.useEffect(() => {
   Promise.all([
@@ -31,6 +36,7 @@ React.useEffect(() => {
       alt: item.name,
       title: item.name,
       likes: item.likes.length,
+      cardLiked: item.likes.find((elem) => elem._id === profile._id)
   }))
   setCards(items)
 

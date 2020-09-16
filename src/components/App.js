@@ -14,6 +14,7 @@ const [isTrashOpen, setIsTrashOpen] = React.useState(false);
 const [isSelectedCard, setIsSelectedCard] = React.useState()
 
 
+
 function handleEditAvatarClick() {
   setIsEditAvatarPopupOpen(true)
 }
