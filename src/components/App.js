@@ -4,6 +4,9 @@ import Main from './Main.js';
 import PopupWithForm from './PopupWithForm';
 import Footer from './Footer.js';
 import '../index.css';
+import { api } from '../utils/api.js';
+import { CurrentUserContext } from '../contexts/CurrentUserContext'
+import { CurrentCardContext } from '../contexts/CurrentCardContext'
 
 const App = () => {
 
@@ -12,7 +15,24 @@ const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = React.useState(false);
 const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = React.useState(false);
 const [isTrashOpen, setIsTrashOpen] = React.useState(false);
 const [isSelectedCard, setIsSelectedCard] = React.useState()
+const [currentUser, setCurrentUser] = React.useState({})
+const [currentCards, setCurrentCards] = React.useState({})
 
+React.useEffect(() => {
+  Promise.all([
+    api.getProfile(), 
+    api.getInitialCards()
+  ])
+    .then(res => {
+      const [profile, cards] = res
+      setCurrentUser(profile)
+      setCurrentCards(cards)
+
+    })
+  .catch((err) => {
+    console.log(err);
+  })
+},[])
 
 
 function handleEditAvatarClick() {
@@ -44,10 +64,11 @@ function closeAllPopups() {
 }
 
   return (
+    <CurrentCardContext.Provider value={currentCards}>
+<CurrentUserContext.Provider value={currentUser}>
     <div className="page">
   <Header />
   <Main onEditProfile={handleEditProfileClick} onAddPlace={handleAddPlaceClick} onTrash={handleTrashClick} onEditAvatar={handleEditAvatarClick} onClose={closeAllPopups} card={isSelectedCard} onCardClick={handleCardClick} />
-
   <PopupWithForm title="Редактировать профиль" id="profile" isOpen={isEditProfilePopupOpen} buttonText={'Сохранить'} isClose={closeAllPopups}>
 <label className="popup__field">
       <input type="text" className="popup__input popup__input_name" id='name-input' name="name" placeholder="Ваше Имя" defaultValue="Жак-Ив Кусто" minLength="2" maxLength="40" required />
@@ -81,6 +102,8 @@ function closeAllPopups() {
 
   <Footer />
 </div>
+</CurrentUserContext.Provider>
+</CurrentCardContext.Provider>
   );
 }
 
