@@ -2,6 +2,7 @@ import React from 'react';
 import Avatar from './Avatar';
 import Card from './Card';
 import ImagePopup from './ImagePopup';
+import {api} from '../utils/api'
 import {CurrentUserContext} from '../contexts/CurrentUserContext'
 import {CurrentCardContext} from '../contexts/CurrentCardContext'
 
@@ -10,16 +11,16 @@ const Main = (props) => {
   const currentUserContext = React.useContext(CurrentUserContext);
   const currentCardContext = React.useContext(CurrentCardContext);
 
+
     const items = currentCardContext.map(item => ({
       src: item.link,
       id: item._id,
       owner: item.owner._id,
       alt: item.name,
-      likes: item.likes,
       title: item.name,
-      like: item.likes.length,
+      likes: item.likes.length,
       cardLiked: item.likes.find((elem) => elem._id === currentUserContext._id)
-  }))
+    }))
 
     return (
     <main>
@@ -29,8 +30,11 @@ const Main = (props) => {
     <section className="places">
     {items.map(card => <Card key={card.id} myId={currentUserContext._id} {...card} {...props} />)}
     </section>
+
+
    
     <ImagePopup card={props.card} onClose={props.onClose} />
+
     </main>
     );
 }
