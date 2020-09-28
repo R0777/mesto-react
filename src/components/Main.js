@@ -10,6 +10,7 @@ const Main = (props) => {
   const currentUserContext = React.useContext(CurrentUserContext);
   const currentCardContext = React.useContext(CurrentCardContext);
 
+
     const items = currentCardContext.map(item => ({
       src: item.link,
       id: item._id,

@@ -6,14 +6,12 @@ const EditAvatarPopup = (props) => {
 
     const avatarLink = React.useRef();
 
-    function handleSubmit(e) {
+    const handleSubmit = (e) => {
         e.preventDefault();
-      
         props.onUpdateAvatar({
           avatar: avatarLink.current.value
         });
       } 
-
 
 return (
     <PopupWithForm title={props.title} id={props.id} buttonText={props.buttonText} isOpen={props.isOpen} isClose={props.isClose} onSubmit={handleSubmit}>
