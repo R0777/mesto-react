@@ -4,7 +4,7 @@ import PopupWithForm from './PopupWithForm'
 
 const EditAvatarPopup = (props) => {
 
-    const avatarLink = React.useRef();
+    const avatarLink = React.useRef(null);
 
     const handleSubmit = (e) => {
         e.preventDefault();

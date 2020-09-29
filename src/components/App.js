@@ -117,6 +117,7 @@ closeAllPopups();
 }
 
 const handleUpdateAvatar = ({avatar}) => {
+  console.log(avatar)
   api.profileAvatar(avatar)
   .then(res => {
     setCurrentUser(res)

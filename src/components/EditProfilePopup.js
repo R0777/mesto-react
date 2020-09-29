@@ -14,7 +14,7 @@ const currentUser = React.useContext(CurrentUserContext);
 React.useEffect(() => {
     api.getProfile()
     .then(res => {
-        setName(res.name);
+        setName(res.name)
         setDescription(res.about)
     })
 }, [currentUser])
