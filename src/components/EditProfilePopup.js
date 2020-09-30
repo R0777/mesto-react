@@ -15,7 +15,7 @@ React.useEffect(() => {
     api.getProfile()
     .then(res => {
         setName(res.name);
-        setDescription(res.about)
+        setDescription(res.about);
     })
 }, [currentUser])
 
@@ -31,10 +31,9 @@ function handleChangeDescription(e) {
     e.preventDefault();
     props.onUpdateUser({
       name,
-      about: description,
+      about: description
     });
   } 
-
 
 return (
 <PopupWithForm title="Новое место" id={props.id} isOpen={props.isOpen} buttonText={props.buttonText} isClose={props.isClose} onSubmit={handleSubmit}>
