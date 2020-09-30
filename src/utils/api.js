@@ -99,7 +99,8 @@ class Api {
         })
       })
       .then((res) => {
-       this._getResponseData(res)
+      return this._getResponseData(res)
+
       })
   }
 }

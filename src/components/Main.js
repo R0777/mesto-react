@@ -1,5 +1,5 @@
 import React from 'react';
-import Avatar from './Avatar';
+import UserProfile from './UserProfile';
 import Card from './Card';
 import ImagePopup from './ImagePopup';
 import {CurrentUserContext} from '../contexts/CurrentUserContext'
@@ -7,32 +7,39 @@ import {CurrentCardContext} from '../contexts/CurrentCardContext'
 
 const Main = (props) => {
 
-  const currentUserContext = React.useContext(CurrentUserContext);
-  const currentCardContext = React.useContext(CurrentCardContext);
+    const currentUserContext = React.useContext(CurrentUserContext);
+    const currentCardContext = React.useContext(CurrentCardContext);
 
-  console.log(currentUserContext)
     const items = currentCardContext.map(item => ({
-      src: item.link,
-      id: item._id,
-      owner: item.owner._id,
-      alt: item.name,
-      likes: item.likes,
-      title: item.name,
-      like: item.likes.length,
-      cardLiked: item.likes.find((elem) => elem._id === currentUserContext._id)
-  }))
+        src: item.link,
+        id: item._id,
+        owner: item.owner._id,
+        alt: item.name,
+        likes: item.likes,
+        title: item.name,
+        like: item.likes.length,
+        cardLiked: item
+            .likes
+            .find((elem) => elem._id === currentUserContext._id)
+    }))
 
     return (
-    <main>
-       
-    <Avatar avatar={props.onEditAvatar} profile={props.onEditProfile} addPlace={props.onAddPlace} userName={currentUserContext.name} userDescription={currentUserContext.about} userAvatar={currentUserContext.avatar} />
+        <main>
 
-    <section className="places">
-    {items.map(card => <Card key={card.id} myId={currentUserContext._id} {...card} {...props} />)}
-    </section>
-   
-    <ImagePopup card={props.card} onClose={props.onClose} />
-    </main>
+            <UserProfile
+                avatar={props.onEditAvatar}
+                profile={props.onEditProfile}
+                addPlace={props.onAddPlace}
+                userName={currentUserContext.name}
+                userDescription={currentUserContext.about}
+                userAvatar={currentUserContext.avatar}/>
+
+            <section className="places">
+                {items.map(card => <Card key={card.id} myId={currentUserContext._id} {...card} {...props}/>)}
+            </section>
+
+            <ImagePopup card={props.card} onClose={props.onClose}/>
+        </main>
     );
 }
 
